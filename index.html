@@ -1,791 +1,382 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONG CU Y KHOA</title>
-    <style>
-        :root {
-            --primary: #0284c7;
-            --primary-hover: #0369a1;
-            --bg-main: #f1f5f9;
-            --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --danger: #ef4444;
-            --danger-hover: #dc2626;
-            --success: #10b981;
-            --note-bg: #fffbeb;
-            --note-border: #f59e0b;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        header {
-            background-color: var(--bg-card);
-            border-bottom: 1px solid var(--border);
-            padding: 0 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 54px;
-            flex-shrink: 0;
-            gap: 12px;
-        }
-
-        .brand {
-            font-weight: 700;
-            font-size: 1.08rem;
-            color: var(--primary);
-            white-space: nowrap;
-        }
-
-        .nav-tabs {
-            display: flex;
-            gap: 6px;
-            height: 100%;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            border-bottom: 3px solid transparent;
-            padding: 0 14px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .tab-btn:hover {
-            color: var(--primary);
-            background-color: #f8fafc;
-        }
-
-        .tab-btn.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 8px;
-            flex-shrink: 0;
-        }
-
-        main {
-            flex: 1;
-            padding: 14px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .tab-content {
-            display: none;
-            height: 100%;
-            width: 100%;
-        }
-
-        .tab-content.active {
-            display: flex;
-            gap: 14px;
-        }
-
-        .sidebar-panel {
-            width: 330px;
-            background: var(--bg-card);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .sidebar-header {
-            padding: 12px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        .search-box:focus {
-            border-color: var(--primary);
-        }
-
-        .protocol-list {
-            flex: 1;
-            overflow-y: auto;
-            list-style: none;
-        }
-
-        .protocol-item {
-            padding: 12px 14px;
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-            transition: background 0.15s;
-        }
-
-        .protocol-item:hover {
-            background-color: #f8fafc;
-        }
-
-        .protocol-item.active {
-            background-color: #e0f2fe;
-            border-left: 4px solid var(--primary);
-        }
-
-        .protocol-item-title {
-            font-weight: 600;
-            font-size: 0.94rem;
-            color: var(--text-main);
-            margin-bottom: 4px;
-        }
-
-        .protocol-item-meta {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
-
-        .detail-panel {
-            flex: 1;
-            background: var(--bg-card);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .detail-header {
-            padding: 12px 18px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #f8fafc;
-            gap: 12px;
-            flex-shrink: 0;
-        }
-
-        .detail-title {
-            font-size: 1.12rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .action-group {
-            display: flex;
-            gap: 8px;
-            flex-shrink: 0;
-        }
-
-        .detail-body {
-            flex: 1;
-            padding: 18px;
-            overflow-y: auto;
-            line-height: 1.6;
-            font-size: 0.95rem;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .protocol-content-display {
-            white-space: pre-wrap;
-            color: #1e293b;
-        }
-
-        .note-box {
-            background-color: var(--note-bg);
-            border-left: 4px solid var(--note-border);
-            border-radius: 6px;
-            padding: 12px 14px;
-            color: #78350f;
-            white-space: pre-wrap;
-            font-size: 0.92rem;
-        }
-
-        .note-label {
-            font-weight: 700;
-            margin-bottom: 4px;
-            display: block;
-            color: #92400e;
-        }
-
-        .form-group {
-            margin-bottom: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .form-group label {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--text-main);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 9px 12px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-size: 0.94rem;
-            outline: none;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-        }
-
-        textarea.form-control.content-area {
-            resize: none;
-            height: 220px;
-            line-height: 1.5;
-        }
-
-        textarea.form-control.note-area {
-            resize: none;
-            height: 80px;
-            line-height: 1.45;
-        }
-
-        .btn {
-            padding: 8px 13px;
-            border-radius: 6px;
-            border: none;
-            font-size: 0.86rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            transition: all 0.15s;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .btn-outline {
-            background-color: white;
-            border: 1px solid var(--border);
-            color: var(--text-main);
-        }
-
-        .btn-outline:hover {
-            background-color: #f1f5f9;
-        }
-
-        .btn-danger {
-            background-color: var(--danger);
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background-color: var(--danger-hover);
-        }
-
-        .btn-success {
-            background-color: var(--success);
-            color: white;
-        }
-
-        .btn-success:hover {
-            opacity: 0.92;
-        }
-
-        .empty-state {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            text-align: center;
-            padding: 20px;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #1e293b;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s;
-            pointer-events: none;
-            z-index: 1000;
-        }
-
-        .toast.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (max-width: 768px) {
-            body {
-                overflow: auto;
-                height: auto;
-            }
-            .tab-content.active {
-                flex-direction: column;
-            }
-            .sidebar-panel {
-                width: 100%;
-                height: 260px;
-            }
-            .detail-panel {
-                min-height: 360px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONG CU Y KHOA</title>
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --danger: #ef4444;
+      --success: #10b981;
+      --note-bg: #fffbeb;
+      --note-border: #f59e0b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    body { background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+    header { background: var(--card); border-bottom: 1px solid var(--border); padding: 0 16px; height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .brand { font-weight: 700; color: var(--primary); font-size: 16px; white-space: nowrap; }
+    .tabs { display: flex; gap: 8px; height: 100%; }
+    .tab-btn { background: none; border: none; border-bottom: 3px solid transparent; padding: 0 12px; font-weight: 600; color: var(--muted); cursor: pointer; white-space: nowrap; }
+    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .top-actions { display: flex; gap: 8px; }
+    main { flex: 1; padding: 12px; overflow: hidden; display: flex; }
+    .tab-panel { display: none; width: 100%; height: 100%; gap: 12px; }
+    .tab-panel.active { display: flex; }
+    .left-col { width: 320px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; flex-shrink: 0; }
+    .left-head { padding: 10px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
+    .search-input { width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; }
+    .proto-list { list-style: none; flex: 1; overflow-y: auto; }
+    .proto-item { padding: 10px 12px; border-bottom: 1px solid var(--border); cursor: pointer; }
+    .proto-item:hover { background: #f8fafc; }
+    .proto-item.active { background: #e0f2fe; border-left: 4px solid var(--primary); }
+    .proto-title { font-weight: 700; font-size: 14px; margin-bottom: 3px; }
+    .proto-meta { font-size: 12px; color: var(--muted); }
+    .right-col { flex: 1; background: var(--card); border: 1px solid var(--border); border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; }
+    .right-head { padding: 10px 16px; border-bottom: 1px solid var(--border); background: #f8fafc; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .right-title { font-size: 16px; font-weight: 700; }
+    .btn-group { display: flex; gap: 8px; flex-shrink: 0; }
+    .right-body { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+    .content-view { white-space: pre-wrap; line-height: 1.55; font-size: 14px; }
+    .note-view { background: var(--note-bg); border-left: 4px solid var(--note-border); padding: 10px 12px; border-radius: 6px; white-space: pre-wrap; font-size: 13px; color: #78350f; }
+    .field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+    .field label { font-weight: 700; font-size: 13px; }
+    .input, .textarea { width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; }
+    .textarea.main-area { height: 210px; resize: none; }
+    .textarea.note-area { height: 75px; resize: none; }
+    .btn { padding: 7px 12px; border-radius: 6px; border: none; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-outline { background: #fff; color: var(--text); border: 1px solid var(--border); }
+    .btn-success { background: var(--success); color: #fff; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .empty { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--muted); gap: 6px; text-align: center; padding: 16px; }
+    .toast { position: fixed; right: 16px; bottom: 16px; background: #0f172a; color: #fff; padding: 9px 14px; border-radius: 6px; font-size: 13px; display: none; z-index: 999; }
+    .toast.show { display: block; }
+  </style>
 </head>
 <body>
+  <header>
+    <div class="brand">CONG CU Y KHOA</div>
+    <div class="tabs">
+      <button type="button" class="tab-btn active" data-target="panel-protocol">Protocol phau thuat, thu thuat</button>
+      <button type="button" class="tab-btn" data-target="panel-other">Cong cu ho tro 2</button>
+    </div>
+    <div class="top-actions">
+      <button type="button" class="btn btn-outline" id="exportBtn">Xuat JSON</button>
+      <button type="button" class="btn btn-outline" id="importBtn">Nhap JSON</button>
+      <input type="file" id="importInput" accept=".json" style="display:none">
+    </div>
+  </header>
 
-    <header>
-        <div class="brand">CONG CU Y KHOA</div>
-
-        <nav class="nav-tabs" id="navTabs">
-            <button type="button" class="tab-btn active" data-tab="tab-protocol">
-                Protocol phau thuat, thu thuat
-            </button>
-            <button type="button" class="tab-btn" data-tab="tab-future-1">
-                Cong cu ho tro 2 (Du phong)
-            </button>
-        </nav>
-
-        <div class="header-actions">
-            <button type="button" class="btn btn-outline" id="btnExport">Xuat du lieu</button>
-            <button type="button" class="btn btn-outline" id="btnImportTrigger">Nhap du lieu</button>
-            <input type="file" id="importFile" accept=".json" style="display: none;">
+  <main>
+    <section id="panel-protocol" class="tab-panel active">
+      <div class="left-col">
+        <div class="left-head">
+          <button type="button" class="btn btn-primary" id="newBtn">+ Nhap protocol moi</button>
+          <input type="text" class="search-input" id="searchBox" placeholder="Tim ten phau thuat, thu thuat...">
         </div>
-    </header>
+        <ul class="proto-list" id="protoList"></ul>
+      </div>
+      <div class="right-col" id="rightCol"></div>
+    </section>
 
-    <main>
-        <section id="tab-protocol" class="tab-content active">
-            <div class="sidebar-panel">
-                <div class="sidebar-header">
-                    <button type="button" class="btn btn-primary" style="width: 100%;" id="btnNewProtocol">
-                        + Nhap protocol moi
-                    </button>
-                    <input type="text" id="searchInput" class="search-box" placeholder="Tim ten phau thuat, thu thuat...">
-                </div>
-                <ul id="protocolList" class="protocol-list"></ul>
-            </div>
+    <section id="panel-other" class="tab-panel">
+      <div class="right-col">
+        <div class="empty">
+          <strong>Khu vuc bo sung tab cong cu tiep theo</strong>
+          <span>San sang tich hop cac cong cu ho tro lam sang khac.</span>
+        </div>
+      </div>
+    </section>
+  </main>
 
-            <div class="detail-panel" id="detailPanel"></div>
-        </section>
+  <div class="toast" id="toastBox"></div>
 
-        <section id="tab-future-1" class="tab-content">
-            <div class="detail-panel">
-                <div class="empty-state">
-                    <p style="font-size: 1.08rem; font-weight: 600;">Khu vuc tich hop cong cu tiep theo</p>
-                    <p style="font-size: 0.9rem;">San sang bo sung cac tinh nang lam sang khac tai day.</p>
-                </div>
-            </div>
-        </section>
-    </main>
+  <script>
+    (function () {
+      var KEY = "cong_cu_y_khoa_protocols_v2";
+      var items = [];
+      var currentId = null;
 
-    <div id="toast" class="toast"></div>
+      function esc(text) {
+        return String(text == null ? "" : text)
+          .replace(/&/g, "&")
+          .replace(/</g, "<")
+          .replace(/>/g, ">")
+          .replace(/"/g, """)
+          .replace(/'/g, "'");
+      }
 
-    <script>
-        (function () {
-            var STORAGE_KEY = 'medical_protocols_v1';
+      function toast(msg) {
+        var box = document.getElementById("toastBox");
+        box.textContent = msg;
+        box.className = "toast show";
+        setTimeout(function () {
+          box.className = "toast";
+        }, 2200);
+      }
 
-            var defaultProtocols = [
-                {
-                    id: 'demo-1',
-                    title: 'Gay te tuy song phau thuat ket hop xuong chi duoi',
-                    content: '1. Chuan bi benh nhan:\n- Danh gia tien me, kiem tra dong mau (PT, aPTT, Tieu cau).\n- Lap duong truyen tinh mach ngoai bien kim 18G, truyen dich tinh the 500ml.\n\n2. Ky thuat:\n- Tu the: Nam nghieng hoac ngoi cong lung tom.\n- Vi tri choc: Khe lien dot L3-L4 hoac L4-L5.\n- Thuoc te: Bupivacaine heavy 0.5% lieu 7.5 - 10mg phoi hop Morphine 0.1mg.',
-                    note: 'Theo doi sat huyet ap va nhip tho trong 24 gio dau neu co phoi hop Morphine tuy song.',
-                    updatedAt: new Date().toLocaleString('vi-VN')
-                }
-            ];
+      function save() {
+        localStorage.setItem(KEY, JSON.stringify(items));
+      }
 
-            function escapeHTML(str) {
-                return String(str == null ? '' : str).replace(/[&<>'"]/g, function (tag) {
-                    if (tag === '&') return '&';
-                    if (tag === '<') return '<';
-                    if (tag === '>') return '>';
-                    if (tag === "'") return ''';
-                    if (tag === '"') return '"';
-                    return tag;
-                });
+      function load() {
+        try {
+          var raw = localStorage.getItem(KEY);
+          var arr = raw ? JSON.parse(raw) : [];
+          if (!Array.isArray(arr)) arr = [];
+          items = arr.map(function (x, i) {
+            return {
+              id: String(x && x.id ? x.id : ("id_" + Date.now() + "_" + i)),
+              title: String(x && x.title ? x.title : ""),
+              content: String(x && x.content ? x.content : ""),
+              note: String(x && x.note ? x.note : ""),
+              updated: String(x && x.updated ? x.updated : new Date().toLocaleString("vi-VN"))
+            };
+          });
+        } catch (e) {
+          items = [];
+        }
+      }
+
+      function showEmpty() {
+        document.getElementById("rightCol").innerHTML =
+          '<div class="empty">' +
+          '<strong>Chua chon protocol nao</strong>' +
+          '<span>Bam "+ Nhap protocol moi" hoac chon 1 muc ben trai.</span>' +
+          '</div>';
+      }
+
+      function renderList() {
+        var ul = document.getElementById("protoList");
+        var q = document.getElementById("searchBox").value.toLowerCase().trim();
+        var filtered = items.filter(function (it) {
+          return it.title.toLowerCase().indexOf(q) !== -1;
+        });
+
+        ul.innerHTML = "";
+        if (filtered.length === 0) {
+          ul.innerHTML = '<li style="padding:14px;color:#64748b;font-size:13px;">Chua co protocol nao.</li>';
+          return;
+        }
+
+        filtered.forEach(function (it) {
+          var li = document.createElement("li");
+          li.className = "proto-item" + (it.id === currentId ? " active" : "");
+          li.innerHTML =
+            '<div class="proto-title">' + esc(it.title) + '</div>' +
+            '<div class="proto-meta">' + (it.note ? "[Co ghi chu] " : "") + esc(it.updated) + '</div>';
+          li.addEventListener("click", function () {
+            showDetail(it.id);
+          });
+          ul.appendChild(li);
+        });
+      }
+
+      function showDetail(id) {
+        var found = items.find(function (it) { return it.id === id; });
+        if (!found) {
+          showEmpty();
+          return;
+        }
+        currentId = found.id;
+        renderList();
+
+        var noteHtml = found.note
+          ? '<div class="note-view"><strong>Ghi chu:</strong>\n' + esc(found.note) + '</div>'
+          : '';
+
+        document.getElementById("rightCol").innerHTML =
+          '<div class="right-head">' +
+          '<div class="right-title">' + esc(found.title) + '</div>' +
+          '<div class="btn-group">' +
+          '<button type="button" class="btn btn-outline" id="editBtn">Chinh sua</button>' +
+          '<button type="button" class="btn btn-outline" id="copyBtn">Sao chep protocol</button>' +
+          '<button type="button" class="btn btn-danger" id="delBtn">Xoa protocol</button>' +
+          '</div>' +
+          '</div>' +
+          '<div class="right-body">' +
+          '<div class="content-view">' + esc(found.content) + '</div>' +
+          noteHtml +
+          '</div>';
+
+        document.getElementById("editBtn").addEventListener("click", function () {
+          openEditor(found.id);
+        });
+        document.getElementById("copyBtn").addEventListener("click", function () {
+          duplicateItem(found.id);
+        });
+        document.getElementById("delBtn").addEventListener("click", function () {
+          removeItem(found.id);
+        });
+      }
+
+      function openEditor(editId) {
+        var editing = editId ? items.find(function (it) { return it.id === editId; }) : null;
+        var data = editing || { title: "", content: "", note: "" };
+
+        document.getElementById("rightCol").innerHTML =
+          '<div class="right-head">' +
+          '<div class="right-title">' + (editing ? "Chinh sua protocol" : "Nhap protocol moi") + '</div>' +
+          '<div class="btn-group">' +
+          '<button type="button" class="btn btn-outline" id="cancelBtn">Huy</button>' +
+          '<button type="button" class="btn btn-success" id="saveBtn">Luu</button>' +
+          '</div>' +
+          '</div>' +
+          '<div class="right-body">' +
+          '<div class="field">' +
+          '<label for="inTitle">Ten phau thuat, thu thuat</label>' +
+          '<input type="text" class="input" id="inTitle" value="' + esc(data.title) + '">' +
+          '</div>' +
+          '<div class="field">' +
+          '<label for="inContent">Noi dung protocol</label>' +
+          '<textarea class="textarea main-area" id="inContent">' + esc(data.content) + '</textarea>' +
+          '</div>' +
+          '<div class="field">' +
+          '<label for="inNote">Ghi chu</label>' +
+          '<textarea class="textarea note-area" id="inNote">' + esc(data.note) + '</textarea>' +
+          '</div>' +
+          '</div>';
+
+        document.getElementById("cancelBtn").addEventListener("click", function () {
+          if (editing) showDetail(editing.id);
+          else showEmpty();
+        });
+
+        document.getElementById("saveBtn").addEventListener("click", function () {
+          var t = document.getElementById("inTitle").value.trim();
+          var c = document.getElementById("inContent").value.trim();
+          var n = document.getElementById("inNote").value.trim();
+          if (!t || !c) {
+            toast("Vui long nhap Ten va Noi dung protocol.");
+            return;
+          }
+          var stamp = new Date().toLocaleString("vi-VN");
+          if (editing) {
+            editing.title = t;
+            editing.content = c;
+            editing.note = n;
+            editing.updated = stamp;
+            currentId = editing.id;
+          } else {
+            var created = {
+              id: "p_" + Date.now(),
+              title: t,
+              content: c,
+              note: n,
+              updated: stamp
+            };
+            items.unshift(created);
+            currentId = created.id;
+          }
+          save();
+          renderList();
+          showDetail(currentId);
+          toast("Da luu protocol.");
+        });
+
+        document.getElementById("inTitle").focus();
+      }
+
+      function duplicateItem(id) {
+        var found = items.find(function (it) { return it.id === id; });
+        if (!found) return;
+        var copy = {
+          id: "p_" + Date.now(),
+          title: found.title + " (Ban sao)",
+          content: found.content,
+          note: found.note,
+          updated: new Date().toLocaleString("vi-VN")
+        };
+        items.unshift(copy);
+        currentId = copy.id;
+        save();
+        renderList();
+        showDetail(copy.id);
+        toast("Da sao chep protocol.");
+      }
+
+      function removeItem(id) {
+        if (!confirm("Xoa protocol nay?")) return;
+        items = items.filter(function (it) { return it.id !== id; });
+        save();
+        if (currentId === id) {
+          currentId = null;
+          showEmpty();
+        }
+        renderList();
+        toast("Da xoa protocol.");
+      }
+
+      document.querySelectorAll(".tab-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var target = btn.getAttribute("data-target");
+          document.querySelectorAll(".tab-btn").forEach(function (b) {
+            b.classList.toggle("active", b === btn);
+          });
+          document.querySelectorAll(".tab-panel").forEach(function (p) {
+            p.classList.toggle("active", p.id === target);
+          });
+        });
+      });
+
+      document.getElementById("newBtn").addEventListener("click", function () {
+        openEditor(null);
+      });
+
+      document.getElementById("searchBox").addEventListener("input", renderList);
+
+      document.getElementById("exportBtn").addEventListener("click", function () {
+        var blob = new Blob([JSON.stringify(items, null, 2)], { type: "application/json" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "protocols.json";
+        a.click();
+        URL.revokeObjectURL(url);
+        toast("Da xuat file JSON.");
+      });
+
+      document.getElementById("importBtn").addEventListener("click", function () {
+        document.getElementById("importInput").click();
+      });
+
+      document.getElementById("importInput").addEventListener("change", function (e) {
+        var file = e.target.files && e.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function (ev) {
+          try {
+            var parsed = JSON.parse(ev.target.result);
+            if (!Array.isArray(parsed)) {
+              toast("File JSON khong hop le.");
+              return;
             }
-
-            function normalizeItem(item, idx) {
-                var obj = item && typeof item === 'object' ? item : {};
-                return {
-                    id: String(obj.id || ('proto-' + Date.now() + '-' + idx)),
-                    title: String(obj.title || 'Chua co ten'),
-                    content: String(obj.content || ''),
-                    note: String(obj.note || ''),
-                    updatedAt: String(obj.updatedAt || new Date().toLocaleString('vi-VN'))
-                };
-            }
-
-            function loadProtocols() {
-                try {
-                    var raw = localStorage.getItem(STORAGE_KEY);
-                    if (!raw) return defaultProtocols.map(normalizeItem);
-                    var parsed = JSON.parse(raw);
-                    if (!Array.isArray(parsed)) return defaultProtocols.map(normalizeItem);
-                    return parsed.map(normalizeItem);
-                } catch (err) {
-                    return defaultProtocols.map(normalizeItem);
-                }
-            }
-
-            var protocols = loadProtocols();
-            var selectedId = null;
-
-            function saveToStorage() {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(protocols));
-            }
-
-            function showToast(msg) {
-                var toast = document.getElementById('toast');
-                if (!toast) return;
-                toast.textContent = msg;
-                toast.classList.add('show');
-                setTimeout(function () {
-                    toast.classList.remove('show');
-                }, 2600);
-            }
-
-            function switchTab(tabId) {
-                document.querySelectorAll('.tab-content').forEach(function (sec) {
-                    sec.classList.toggle('active', sec.id === tabId);
-                });
-                document.querySelectorAll('.tab-btn').forEach(function (btn) {
-                    btn.classList.toggle('active', btn.dataset.tab === tabId);
-                });
-            }
-
-            function resetDetailPanel() {
-                var panel = document.getElementById('detailPanel');
-                panel.innerHTML =
-                    '<div class="empty-state">' +
-                    '<p style="font-size: 1.08rem; font-weight: 600; margin-bottom: 6px;">Chua chon Protocol nao</p>' +
-                    '<p style="font-size: 0.9rem;">Chon mot phau thuat/thu thuat o danh sach ben trai de xem hoac bam <b>"Nhap protocol moi"</b>.</p>' +
-                    '</div>';
-            }
-
-            function renderList() {
-                var listEl = document.getElementById('protocolList');
-                var searchEl = document.getElementById('searchInput');
-                var keyword = (searchEl ? searchEl.value : '').toLowerCase().trim();
-
-                var filtered = protocols.filter(function (p) {
-                    return String(p.title || '').toLowerCase().indexOf(keyword) !== -1;
-                });
-
-                listEl.innerHTML = '';
-
-                if (filtered.length === 0) {
-                    listEl.innerHTML = '<li style="padding: 20px; text-align: center; color: #64748b; font-size: 0.9rem;">Khong tim thay protocol nao</li>';
-                    return;
-                }
-
-                filtered.forEach(function (item) {
-                    var li = document.createElement('li');
-                    li.className = 'protocol-item' + (item.id === selectedId ? ' active' : '');
-                    li.dataset.id = item.id;
-
-                    var notePrefix = item.note && item.note.trim() !== '' ? '[Co ghi chu] ' : '';
-                    li.innerHTML =
-                        '<div class="protocol-item-title">' + escapeHTML(item.title) + '</div>' +
-                        '<div class="protocol-item-meta">' + notePrefix + 'Cap nhat: ' + escapeHTML(item.updatedAt) + '</div>';
-
-                    li.addEventListener('click', function () {
-                        viewProtocol(item.id);
-                    });
-
-                    listEl.appendChild(li);
-                });
-            }
-
-            function viewProtocol(id) {
-                var item = protocols.find(function (p) {
-                    return p.id === id;
-                });
-
-                if (!item) {
-                    resetDetailPanel();
-                    return;
-                }
-
-                selectedId = item.id;
-                renderList();
-
-                var noteHtml = item.note && item.note.trim() !== ''
-                    ? '<div class="note-box"><span class="note-label">Ghi chu</span>' + escapeHTML(item.note) + '</div>'
-                    : '';
-
-                var panel = document.getElementById('detailPanel');
-                panel.innerHTML =
-                    '<div class="detail-header">' +
-                    '<div class="detail-title">' + escapeHTML(item.title) + '</div>' +
-                    '<div class="action-group">' +
-                    '<button type="button" class="btn btn-outline" id="btnEditProto">Chinh sua</button>' +
-                    '<button type="button" class="btn btn-outline" id="btnCopyProto">Sao chep protocol</button>' +
-                    '<button type="button" class="btn btn-danger" id="btnDeleteProto">Xoa protocol</button>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="detail-body">' +
-                    '<div class="protocol-content-display">' + escapeHTML(item.content) + '</div>' +
-                    noteHtml +
-                    '</div>';
-
-                document.getElementById('btnEditProto').addEventListener('click', function () {
-                    openForm(item.id);
-                });
-
-                document.getElementById('btnCopyProto').addEventListener('click', function () {
-                    copyProtocol(item.id);
-                });
-
-                document.getElementById('btnDeleteProto').addEventListener('click', function () {
-                    deleteProtocol(item.id);
-                });
-            }
-
-            function openForm(editId) {
-                var isEdit = Boolean(editId);
-                var found = isEdit
-                    ? protocols.find(function (p) { return p.id === editId; })
-                    : null;
-
-                var current = found || { title: '', content: '', note: '' };
-                var panel = document.getElementById('detailPanel');
-
-                panel.innerHTML =
-                    '<div class="detail-header">' +
-                    '<div class="detail-title">' + (isEdit ? 'Chinh sua Protocol' : 'Nhap Protocol moi') + '</div>' +
-                    '<div class="action-group">' +
-                    '<button type="button" class="btn btn-outline" id="btnCancelForm">Huy</button>' +
-                    '<button type="button" class="btn btn-success" id="btnSaveForm">Luu</button>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="detail-body">' +
-                    '<div class="form-group">' +
-                    '<label for="protoTitle">Ten phau thuat, thu thuat <span style="color:red">*</span></label>' +
-                    '<input type="text" id="protoTitle" class="form-control" placeholder="Vi du: Phau thuat noi soi cat ruot thua..." value="' + escapeHTML(current.title) + '">' +
-                    '</div>' +
-                    '<div class="form-group">' +
-                    '<label for="protoContent">Noi dung protocol <span style="color:red">*</span></label>' +
-                    '<textarea id="protoContent" class="form-control content-area" placeholder="Nhap cac buoc chuan bi, quy trinh thuc hien, thuoc, theo doi...">' + escapeHTML(current.content) + '</textarea>' +
-                    '</div>' +
-                    '<div class="form-group">' +
-                    '<label for="protoNote">Ghi chu</label>' +
-                    '<textarea id="protoNote" class="form-control note-area" placeholder="Nhap ghi chu bo sung, luu y dac biet (khong bat buoc)...">' + escapeHTML(current.note) + '</textarea>' +
-                    '</div>' +
-                    '</div>';
-
-                document.getElementById('btnCancelForm').addEventListener('click', function () {
-                    if (isEdit && found) {
-                        viewProtocol(found.id);
-                    } else {
-                        resetDetailPanel();
-                    }
-                });
-
-                document.getElementById('btnSaveForm').addEventListener('click', function () {
-                    saveProtocol(isEdit ? editId : null);
-                });
-
-                var titleInput = document.getElementById('protoTitle');
-                if (titleInput) titleInput.focus();
-            }
-
-            function saveProtocol(editId) {
-                var titleInput = document.getElementById('protoTitle');
-                var contentInput = document.getElementById('protoContent');
-                var noteInput = document.getElementById('protoNote');
-
-                var title = (titleInput ? titleInput.value : '').trim();
-                var content = (contentInput ? contentInput.value : '').trim();
-                var note = (noteInput ? noteInput.value : '').trim();
-
-                if (!title || !content) {
-                    showToast('Vui long nhap day du Ten va Noi dung protocol!');
-                    return;
-                }
-
-                var now = new Date().toLocaleString('vi-VN');
-
-                if (editId) {
-                    var idx = protocols.findIndex(function (p) { return p.id === editId; });
-                    if (idx !== -1) {
-                        protocols[idx] = {
-                            id: protocols[idx].id,
-                            title: title,
-                            content: content,
-                            note: note,
-                            updatedAt: now
-                        };
-                        selectedId = protocols[idx].id;
-                        saveToStorage();
-                        renderList();
-                        viewProtocol(selectedId);
-                        showToast('Da cap nhat protocol!');
-                    }
-                } else {
-                    var newItem = {
-                        id: 'proto-' + Date.now(),
-                        title: title,
-                        content: content,
-                        note: note,
-                        updatedAt: now
-                    };
-                    protocols.unshift(newItem);
-                    selectedId = newItem.id;
-                    saveToStorage();
-                    renderList();
-                    viewProtocol(selectedId);
-                    showToast('Da luu protocol moi!');
-                }
-            }
-
-            function copyProtocol(id) {
-                var item = protocols.find(function (p) { return p.id === id; });
-                if (!item) return;
-
-                var noteText = item.note && item.note.trim() !== '' ? '\n\nGhi chu:\n' + item.note : '';
-                var clipboardText = String(item.title).toUpperCase() + '\n\n' + item.content + noteText;
-
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(clipboardText).catch(function () {});
-                }
-
-                var duplicated = {
-                    id: 'proto-' + Date.now(),
-                    title: item.title + ' (Ban sao)',
-                    content: item.content,
-                    note: item.note || '',
-                    updatedAt: new Date().toLocaleString('vi-VN')
-                };
-
-                protocols.unshift(duplicated);
-                selectedId = duplicated.id;
-                saveToStorage();
-                renderList();
-                viewProtocol(selectedId);
-                showToast('Da tao ban sao va chep noi dung vao bo nho tam!');
-            }
-
-            function deleteProtocol(id) {
-                if (!window.confirm('Ban co chac chan muon xoa protocol nay khong?')) return;
-                protocols = protocols.filter(function (p) { return p.id !== id; });
-                saveToStorage();
-                if (selectedId === id) {
-                    selectedId = null;
-                    resetDetailPanel();
-                }
-                renderList();
-                showToast('Da xoa protocol!');
-            }
-
-            function exportData() {
-                var jsonText = JSON.stringify(protocols, null, 2);
-                var blob = new Blob([jsonText], { type: 'application/json;charset=utf-8' });
-                var url = URL.createObjectURL(blob);
-                var link = document.createElement('a');
-                link.href = url;
-                link.download = 'protocol_ykhoa_' + new Date().toISOString().slice(0, 10) + '.json';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-                showToast('Da xuat file du lieu du phong!');
-            }
-
-            function importData(event) {
-                var file = event.target.files && event.target.files[0];
-                if (!file) return;
-
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    try {
-                        var parsed = JSON.parse(e.target.result);
-                        if (!Array.isArray(parsed)) {
-                            window.alert('File khong dung dinh dang danh sach protocol!');
-                            return;
-                        }
-                        protocols = parsed.map(normalizeItem);
-                        selectedId = null;
-                        saveToStorage();
-                        renderList();
-                        resetDetailPanel();
-                        showToast('Da nhap du lieu thanh cong!');
-                    } catch (err) {
-                        window.alert('Loi doc file JSON!');
-                    }
-                };
-                reader.readAsText(file);
-                event.target.value = '';
-            }
-
-            document.querySelectorAll('.tab-btn').forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    switchTab(btn.dataset.tab);
-                });
-            });
-
-            document.getElementById('btnNewProtocol').addEventListener('click', function () {
-                openForm(null);
-            });
-
-            document.getElementById('searchInput').addEventListener('input', renderList);
-            document.getElementById('btnExport').addEventListener('click', exportData);
-            document.getElementById('btnImportTrigger').addEventListener('click', function () {
-                document.getElementById('importFile').click();
-            });
-            document.getElementById('importFile').addEventListener('change', importData);
-
+            localStorage.setItem(KEY, JSON.stringify(parsed));
+            load();
+            currentId = null;
             renderList();
-            resetDetailPanel();
-        })();
-    </script>
+            showEmpty();
+            toast("Da nhap du lieu.");
+          } catch (err) {
+            toast("Loi doc file JSON.");
+          }
+        };
+        reader.readAsText(file);
+        e.target.value = "";
+      });
+
+      load();
+      renderList();
+      showEmpty();
+    })();
+  </script>
 </body>
 </html>
