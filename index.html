@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CÔNG CỤ Y KHOA</title>
+    <title>CONG CU Y KHOA</title>
     <style>
         :root {
             --primary: #0284c7;
@@ -50,11 +50,8 @@
 
         .brand {
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.08rem;
             color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
             white-space: nowrap;
         }
 
@@ -386,22 +383,20 @@
 <body>
 
     <header>
-        <div class="brand">
-            <span>⚕️ CÔNG CỤ Y KHOA</span>
-        </div>
+        <div class="brand">CONG CU Y KHOA</div>
 
         <nav class="nav-tabs" id="navTabs">
             <button type="button" class="tab-btn active" data-tab="tab-protocol">
-                📋 Protocol phẫu thuật, thủ thuật
+                Protocol phau thuat, thu thuat
             </button>
             <button type="button" class="tab-btn" data-tab="tab-future-1">
-                🧮 Công cụ hỗ trợ 2 (Dự phòng)
+                Cong cu ho tro 2 (Du phong)
             </button>
         </nav>
 
         <div class="header-actions">
-            <button type="button" class="btn btn-outline" id="btnExport">⬇️ Xuất dữ liệu</button>
-            <button type="button" class="btn btn-outline" id="btnImportTrigger">⬆️ Nhập dữ liệu</button>
+            <button type="button" class="btn btn-outline" id="btnExport">Xuat du lieu</button>
+            <button type="button" class="btn btn-outline" id="btnImportTrigger">Nhap du lieu</button>
             <input type="file" id="importFile" accept=".json" style="display: none;">
         </div>
     </header>
@@ -411,9 +406,9 @@
             <div class="sidebar-panel">
                 <div class="sidebar-header">
                     <button type="button" class="btn btn-primary" style="width: 100%;" id="btnNewProtocol">
-                        ➕ Nhập protocol mới
+                        + Nhap protocol moi
                     </button>
-                    <input type="text" id="searchInput" class="search-box" placeholder="🔍 Tìm tên phẫu thuật, thủ thuật...">
+                    <input type="text" id="searchInput" class="search-box" placeholder="Tim ten phau thuat, thu thuat...">
                 </div>
                 <ul id="protocolList" class="protocol-list"></ul>
             </div>
@@ -424,8 +419,8 @@
         <section id="tab-future-1" class="tab-content">
             <div class="detail-panel">
                 <div class="empty-state">
-                    <p style="font-size: 1.08rem; font-weight: 600;">Khu vực tích hợp công cụ tiếp theo</p>
-                    <p style="font-size: 0.9rem;">Sẵn sàng bổ sung các tính năng lâm sàng khác tại đây.</p>
+                    <p style="font-size: 1.08rem; font-weight: 600;">Khu vuc tich hop cong cu tiep theo</p>
+                    <p style="font-size: 0.9rem;">San sang bo sung cac tinh nang lam sang khac tai day.</p>
                 </div>
             </div>
         </section>
@@ -435,36 +430,34 @@
 
     <script>
         (function () {
-            const STORAGE_KEY = 'medical_protocols_v1';
+            var STORAGE_KEY = 'medical_protocols_v1';
 
-            const defaultProtocols = [
+            var defaultProtocols = [
                 {
                     id: 'demo-1',
-                    title: 'Gây tê tủy sống phẫu thuật kết hợp xương chi dưới',
-                    content: '1. Chuẩn bị bệnh nhân:\n- Đánh giá tiền mê, kiểm tra đông máu (PT, aPTT, Tiểu cầu).\n- Lập đường truyền tĩnh mạch ngoại biên kim 18G, truyền dịch tinh thể 500ml.\n\n2. Kỹ thuật:\n- Tư thế: Nằm nghiêng hoặc ngồi cong lưng tôm.\n- Vị trí chọc: Khe liên đốt L3-L4 hoặc L4-L5.\n- Thuốc tê: Bupivacaine heavy 0.5% liều 7.5 - 10mg phối hợp Morphine 0.1mg.',
-                    note: 'Theo dõi sát huyết áp và nhịp thở trong 24 giờ đầu nếu có phối hợp Morphine tủy sống.',
+                    title: 'Gay te tuy song phau thuat ket hop xuong chi duoi',
+                    content: '1. Chuan bi benh nhan:\n- Danh gia tien me, kiem tra dong mau (PT, aPTT, Tieu cau).\n- Lap duong truyen tinh mach ngoai bien kim 18G, truyen dich tinh the 500ml.\n\n2. Ky thuat:\n- Tu the: Nam nghieng hoac ngoi cong lung tom.\n- Vi tri choc: Khe lien dot L3-L4 hoac L4-L5.\n- Thuoc te: Bupivacaine heavy 0.5% lieu 7.5 - 10mg phoi hop Morphine 0.1mg.',
+                    note: 'Theo doi sat huyet ap va nhip tho trong 24 gio dau neu co phoi hop Morphine tuy song.',
                     updatedAt: new Date().toLocaleString('vi-VN')
                 }
             ];
 
             function escapeHTML(str) {
-                return String(str ?? '').replace(/[&<>'"]/g, function (tag) {
-                    const map = {
-                        '&': '&',
-                        '<': '<',
-                        '>': '>',
-                        "'": ''',
-                        '"': '"'
-                    };
-                    return map[tag] || tag;
+                return String(str == null ? '' : str).replace(/[&<>'"]/g, function (tag) {
+                    if (tag === '&') return '&';
+                    if (tag === '<') return '<';
+                    if (tag === '>') return '>';
+                    if (tag === "'") return ''';
+                    if (tag === '"') return '"';
+                    return tag;
                 });
             }
 
             function normalizeItem(item, idx) {
-                const obj = item && typeof item === 'object' ? item : {};
+                var obj = item && typeof item === 'object' ? item : {};
                 return {
                     id: String(obj.id || ('proto-' + Date.now() + '-' + idx)),
-                    title: String(obj.title || 'Chưa có tên'),
+                    title: String(obj.title || 'Chua co ten'),
                     content: String(obj.content || ''),
                     note: String(obj.note || ''),
                     updatedAt: String(obj.updatedAt || new Date().toLocaleString('vi-VN'))
@@ -473,9 +466,9 @@
 
             function loadProtocols() {
                 try {
-                    const raw = localStorage.getItem(STORAGE_KEY);
+                    var raw = localStorage.getItem(STORAGE_KEY);
                     if (!raw) return defaultProtocols.map(normalizeItem);
-                    const parsed = JSON.parse(raw);
+                    var parsed = JSON.parse(raw);
                     if (!Array.isArray(parsed)) return defaultProtocols.map(normalizeItem);
                     return parsed.map(normalizeItem);
                 } catch (err) {
@@ -483,15 +476,15 @@
                 }
             }
 
-            let protocols = loadProtocols();
-            let selectedId = null;
+            var protocols = loadProtocols();
+            var selectedId = null;
 
             function saveToStorage() {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(protocols));
             }
 
             function showToast(msg) {
-                const toast = document.getElementById('toast');
+                var toast = document.getElementById('toast');
                 if (!toast) return;
                 toast.textContent = msg;
                 toast.classList.add('show');
@@ -510,41 +503,39 @@
             }
 
             function resetDetailPanel() {
-                const panel = document.getElementById('detailPanel');
-                panel.innerHTML = [
-                    '<div class="empty-state">',
-                    '  <p style="font-size: 1.08rem; font-weight: 600; margin-bottom: 6px;">Chưa chọn Protocol nào</p>',
-                    '  <p style="font-size: 0.9rem;">Chọn một phẫu thuật/thủ thuật ở danh sách bên trái để xem hoặc bấm <b>"Nhập protocol mới"</b>.</p>',
-                    '</div>'
-                ].join('');
+                var panel = document.getElementById('detailPanel');
+                panel.innerHTML =
+                    '<div class="empty-state">' +
+                    '<p style="font-size: 1.08rem; font-weight: 600; margin-bottom: 6px;">Chua chon Protocol nao</p>' +
+                    '<p style="font-size: 0.9rem;">Chon mot phau thuat/thu thuat o danh sach ben trai de xem hoac bam <b>"Nhap protocol moi"</b>.</p>' +
+                    '</div>';
             }
 
             function renderList() {
-                const listEl = document.getElementById('protocolList');
-                const searchEl = document.getElementById('searchInput');
-                const keyword = (searchEl ? searchEl.value : '').toLowerCase().trim();
+                var listEl = document.getElementById('protocolList');
+                var searchEl = document.getElementById('searchInput');
+                var keyword = (searchEl ? searchEl.value : '').toLowerCase().trim();
 
-                const filtered = protocols.filter(function (p) {
-                    return String(p.title || '').toLowerCase().includes(keyword);
+                var filtered = protocols.filter(function (p) {
+                    return String(p.title || '').toLowerCase().indexOf(keyword) !== -1;
                 });
 
                 listEl.innerHTML = '';
 
                 if (filtered.length === 0) {
-                    listEl.innerHTML = '<li style="padding: 20px; text-align: center; color: #64748b; font-size: 0.9rem;">Không tìm thấy protocol nào</li>';
+                    listEl.innerHTML = '<li style="padding: 20px; text-align: center; color: #64748b; font-size: 0.9rem;">Khong tim thay protocol nao</li>';
                     return;
                 }
 
                 filtered.forEach(function (item) {
-                    const li = document.createElement('li');
+                    var li = document.createElement('li');
                     li.className = 'protocol-item' + (item.id === selectedId ? ' active' : '');
                     li.dataset.id = item.id;
 
-                    const notePrefix = item.note && item.note.trim() !== '' ? '📝 Có ghi chú • ' : '';
-                    li.innerHTML = [
-                        '<div class="protocol-item-title">' + escapeHTML(item.title) + '</div>',
-                        '<div class="protocol-item-meta">' + notePrefix + 'Cập nhật: ' + escapeHTML(item.updatedAt) + '</div>'
-                    ].join('');
+                    var notePrefix = item.note && item.note.trim() !== '' ? '[Co ghi chu] ' : '';
+                    li.innerHTML =
+                        '<div class="protocol-item-title">' + escapeHTML(item.title) + '</div>' +
+                        '<div class="protocol-item-meta">' + notePrefix + 'Cap nhat: ' + escapeHTML(item.updatedAt) + '</div>';
 
                     li.addEventListener('click', function () {
                         viewProtocol(item.id);
@@ -555,7 +546,7 @@
             }
 
             function viewProtocol(id) {
-                const item = protocols.find(function (p) {
+                var item = protocols.find(function (p) {
                     return p.id === id;
                 });
 
@@ -567,25 +558,24 @@
                 selectedId = item.id;
                 renderList();
 
-                const noteHtml = item.note && item.note.trim() !== ''
-                    ? '<div class="note-box"><span class="note-label">📌 Ghi chú</span>' + escapeHTML(item.note) + '</div>'
+                var noteHtml = item.note && item.note.trim() !== ''
+                    ? '<div class="note-box"><span class="note-label">Ghi chu</span>' + escapeHTML(item.note) + '</div>'
                     : '';
 
-                const panel = document.getElementById('detailPanel');
-                panel.innerHTML = [
-                    '<div class="detail-header">',
-                    '  <div class="detail-title">' + escapeHTML(item.title) + '</div>',
-                    '  <div class="action-group">',
-                    '    <button type="button" class="btn btn-outline" id="btnEditProto">✏️ Chỉnh sửa</button>',
-                    '    <button type="button" class="btn btn-outline" id="btnCopyProto">📋 Sao chép protocol</button>',
-                    '    <button type="button" class="btn btn-danger" id="btnDeleteProto">🗑️ Xóa protocol</button>',
-                    '  </div>',
-                    '</div>',
-                    '<div class="detail-body">',
-                    '  <div class="protocol-content-display">' + escapeHTML(item.content) + '</div>',
-                    noteHtml,
-                    '</div>'
-                ].join('');
+                var panel = document.getElementById('detailPanel');
+                panel.innerHTML =
+                    '<div class="detail-header">' +
+                    '<div class="detail-title">' + escapeHTML(item.title) + '</div>' +
+                    '<div class="action-group">' +
+                    '<button type="button" class="btn btn-outline" id="btnEditProto">Chinh sua</button>' +
+                    '<button type="button" class="btn btn-outline" id="btnCopyProto">Sao chep protocol</button>' +
+                    '<button type="button" class="btn btn-danger" id="btnDeleteProto">Xoa protocol</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="detail-body">' +
+                    '<div class="protocol-content-display">' + escapeHTML(item.content) + '</div>' +
+                    noteHtml +
+                    '</div>';
 
                 document.getElementById('btnEditProto').addEventListener('click', function () {
                     openForm(item.id);
@@ -601,37 +591,36 @@
             }
 
             function openForm(editId) {
-                const isEdit = Boolean(editId);
-                const found = isEdit
+                var isEdit = Boolean(editId);
+                var found = isEdit
                     ? protocols.find(function (p) { return p.id === editId; })
                     : null;
 
-                const current = found || { title: '', content: '', note: '' };
-                const panel = document.getElementById('detailPanel');
+                var current = found || { title: '', content: '', note: '' };
+                var panel = document.getElementById('detailPanel');
 
-                panel.innerHTML = [
-                    '<div class="detail-header">',
-                    '  <div class="detail-title">' + (isEdit ? 'Chỉnh sửa Protocol' : 'Nhập Protocol mới') + '</div>',
-                    '  <div class="action-group">',
-                    '    <button type="button" class="btn btn-outline" id="btnCancelForm">Hủy</button>',
-                    '    <button type="button" class="btn btn-success" id="btnSaveForm">💾 Lưu</button>',
-                    '  </div>',
-                    '</div>',
-                    '<div class="detail-body">',
-                    '  <div class="form-group">',
-                    '    <label for="protoTitle">Tên phẫu thuật, thủ thuật <span style="color:red">*</span></label>',
-                    '    <input type="text" id="protoTitle" class="form-control" placeholder="Ví dụ: Phẫu thuật nội soi cắt ruột thừa..." value="' + escapeHTML(current.title) + '">',
-                    '  </div>',
-                    '  <div class="form-group">',
-                    '    <label for="protoContent">Nội dung protocol <span style="color:red">*</span></label>',
-                    '    <textarea id="protoContent" class="form-control content-area" placeholder="Nhập các bước chuẩn bị, quy trình thực hiện, thuốc, theo dõi...">' + escapeHTML(current.content) + '</textarea>',
-                    '  </div>',
-                    '  <div class="form-group">',
-                    '    <label for="protoNote">Ghi chú</label>',
-                    '    <textarea id="protoNote" class="form-control note-area" placeholder="Nhập ghi chú bổ sung, lưu ý đặc biệt (không bắt buộc)...">' + escapeHTML(current.note) + '</textarea>',
-                    '  </div>',
-                    '</div>'
-                ].join('');
+                panel.innerHTML =
+                    '<div class="detail-header">' +
+                    '<div class="detail-title">' + (isEdit ? 'Chinh sua Protocol' : 'Nhap Protocol moi') + '</div>' +
+                    '<div class="action-group">' +
+                    '<button type="button" class="btn btn-outline" id="btnCancelForm">Huy</button>' +
+                    '<button type="button" class="btn btn-success" id="btnSaveForm">Luu</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="detail-body">' +
+                    '<div class="form-group">' +
+                    '<label for="protoTitle">Ten phau thuat, thu thuat <span style="color:red">*</span></label>' +
+                    '<input type="text" id="protoTitle" class="form-control" placeholder="Vi du: Phau thuat noi soi cat ruot thua..." value="' + escapeHTML(current.title) + '">' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                    '<label for="protoContent">Noi dung protocol <span style="color:red">*</span></label>' +
+                    '<textarea id="protoContent" class="form-control content-area" placeholder="Nhap cac buoc chuan bi, quy trinh thuc hien, thuoc, theo doi...">' + escapeHTML(current.content) + '</textarea>' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                    '<label for="protoNote">Ghi chu</label>' +
+                    '<textarea id="protoNote" class="form-control note-area" placeholder="Nhap ghi chu bo sung, luu y dac biet (khong bat buoc)...">' + escapeHTML(current.note) + '</textarea>' +
+                    '</div>' +
+                    '</div>';
 
                 document.getElementById('btnCancelForm').addEventListener('click', function () {
                     if (isEdit && found) {
@@ -645,28 +634,28 @@
                     saveProtocol(isEdit ? editId : null);
                 });
 
-                const titleInput = document.getElementById('protoTitle');
+                var titleInput = document.getElementById('protoTitle');
                 if (titleInput) titleInput.focus();
             }
 
             function saveProtocol(editId) {
-                const titleInput = document.getElementById('protoTitle');
-                const contentInput = document.getElementById('protoContent');
-                const noteInput = document.getElementById('protoNote');
+                var titleInput = document.getElementById('protoTitle');
+                var contentInput = document.getElementById('protoContent');
+                var noteInput = document.getElementById('protoNote');
 
-                const title = (titleInput ? titleInput.value : '').trim();
-                const content = (contentInput ? contentInput.value : '').trim();
-                const note = (noteInput ? noteInput.value : '').trim();
+                var title = (titleInput ? titleInput.value : '').trim();
+                var content = (contentInput ? contentInput.value : '').trim();
+                var note = (noteInput ? noteInput.value : '').trim();
 
                 if (!title || !content) {
-                    showToast('⚠️ Vui lòng nhập đầy đủ Tên và Nội dung protocol!');
+                    showToast('Vui long nhap day du Ten va Noi dung protocol!');
                     return;
                 }
 
-                const now = new Date().toLocaleString('vi-VN');
+                var now = new Date().toLocaleString('vi-VN');
 
                 if (editId) {
-                    const idx = protocols.findIndex(function (p) { return p.id === editId; });
+                    var idx = protocols.findIndex(function (p) { return p.id === editId; });
                     if (idx !== -1) {
                         protocols[idx] = {
                             id: protocols[idx].id,
@@ -679,10 +668,10 @@
                         saveToStorage();
                         renderList();
                         viewProtocol(selectedId);
-                        showToast('✅ Đã cập nhật protocol!');
+                        showToast('Da cap nhat protocol!');
                     }
                 } else {
-                    const newItem = {
+                    var newItem = {
                         id: 'proto-' + Date.now(),
                         title: title,
                         content: content,
@@ -694,24 +683,24 @@
                     saveToStorage();
                     renderList();
                     viewProtocol(selectedId);
-                    showToast('✅ Đã lưu protocol mới!');
+                    showToast('Da luu protocol moi!');
                 }
             }
 
             function copyProtocol(id) {
-                const item = protocols.find(function (p) { return p.id === id; });
+                var item = protocols.find(function (p) { return p.id === id; });
                 if (!item) return;
 
-                const noteText = item.note && item.note.trim() !== '' ? '\n\nGhi chú:\n' + item.note : '';
-                const clipboardText = String(item.title).toUpperCase() + '\n\n' + item.content + noteText;
+                var noteText = item.note && item.note.trim() !== '' ? '\n\nGhi chu:\n' + item.note : '';
+                var clipboardText = String(item.title).toUpperCase() + '\n\n' + item.content + noteText;
 
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard.writeText(clipboardText).catch(function () {});
                 }
 
-                const duplicated = {
+                var duplicated = {
                     id: 'proto-' + Date.now(),
-                    title: item.title + ' (Bản sao)',
+                    title: item.title + ' (Ban sao)',
                     content: item.content,
                     note: item.note || '',
                     updatedAt: new Date().toLocaleString('vi-VN')
@@ -722,11 +711,11 @@
                 saveToStorage();
                 renderList();
                 viewProtocol(selectedId);
-                showToast('📋 Đã tạo bản sao & chép nội dung vào bộ nhớ tạm!');
+                showToast('Da tao ban sao va chep noi dung vao bo nho tam!');
             }
 
             function deleteProtocol(id) {
-                if (!window.confirm('Bạn có chắc chắn muốn xóa protocol này không?')) return;
+                if (!window.confirm('Ban co chac chan muon xoa protocol nay khong?')) return;
                 protocols = protocols.filter(function (p) { return p.id !== id; });
                 saveToStorage();
                 if (selectedId === id) {
@@ -734,33 +723,33 @@
                     resetDetailPanel();
                 }
                 renderList();
-                showToast('🗑️ Đã xóa protocol!');
+                showToast('Da xoa protocol!');
             }
 
             function exportData() {
-                const jsonText = JSON.stringify(protocols, null, 2);
-                const blob = new Blob([jsonText], { type: 'application/json;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
+                var jsonText = JSON.stringify(protocols, null, 2);
+                var blob = new Blob([jsonText], { type: 'application/json;charset=utf-8' });
+                var url = URL.createObjectURL(blob);
+                var link = document.createElement('a');
                 link.href = url;
                 link.download = 'protocol_ykhoa_' + new Date().toISOString().slice(0, 10) + '.json';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
                 URL.revokeObjectURL(url);
-                showToast('⬇️ Đã xuất file dữ liệu dự phòng!');
+                showToast('Da xuat file du lieu du phong!');
             }
 
             function importData(event) {
-                const file = event.target.files && event.target.files[0];
+                var file = event.target.files && event.target.files[0];
                 if (!file) return;
 
-                const reader = new FileReader();
+                var reader = new FileReader();
                 reader.onload = function (e) {
                     try {
-                        const parsed = JSON.parse(e.target.result);
+                        var parsed = JSON.parse(e.target.result);
                         if (!Array.isArray(parsed)) {
-                            window.alert('File không đúng định dạng danh sách protocol!');
+                            window.alert('File khong dung dinh dang danh sach protocol!');
                             return;
                         }
                         protocols = parsed.map(normalizeItem);
@@ -768,9 +757,9 @@
                         saveToStorage();
                         renderList();
                         resetDetailPanel();
-                        showToast('✅ Đã nhập dữ liệu thành công!');
+                        showToast('Da nhap du lieu thanh cong!');
                     } catch (err) {
-                        window.alert('Lỗi đọc file JSON!');
+                        window.alert('Loi doc file JSON!');
                     }
                 };
                 reader.readAsText(file);
