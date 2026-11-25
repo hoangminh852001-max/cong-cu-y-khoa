@@ -20,8 +20,13 @@
             --note-border: #f59e0b;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
         body {
             background-color: var(--bg-main);
             color: var(--text-main);
@@ -34,21 +39,23 @@
         header {
             background-color: var(--bg-card);
             border-bottom: 1px solid var(--border);
-            padding: 0 20px;
+            padding: 0 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 56px;
+            height: 54px;
             flex-shrink: 0;
+            gap: 12px;
         }
 
         .brand {
             font-weight: 700;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: var(--primary);
             display: flex;
             align-items: center;
             gap: 8px;
+            white-space: nowrap;
         }
 
         .nav-tabs {
@@ -61,18 +68,30 @@
             background: none;
             border: none;
             border-bottom: 3px solid transparent;
-            padding: 0 16px;
-            font-size: 0.92rem;
+            padding: 0 14px;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--text-muted);
             cursor: pointer;
             transition: all 0.2s;
+            white-space: nowrap;
         }
 
-        .tab-btn:hover { color: var(--primary); background-color: #f8fafc; }
-        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .tab-btn:hover {
+            color: var(--primary);
+            background-color: #f8fafc;
+        }
 
-        .header-actions { display: flex; gap: 8px; }
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
 
         main {
             flex: 1;
@@ -94,7 +113,7 @@
         }
 
         .sidebar-panel {
-            width: 340px;
+            width: 330px;
             background: var(--bg-card);
             border-radius: 8px;
             border: 1px solid var(--border);
@@ -120,7 +139,10 @@
             font-size: 0.9rem;
             outline: none;
         }
-        .search-box:focus { border-color: var(--primary); }
+
+        .search-box:focus {
+            border-color: var(--primary);
+        }
 
         .protocol-list {
             flex: 1;
@@ -135,7 +157,10 @@
             transition: background 0.15s;
         }
 
-        .protocol-item:hover { background-color: #f8fafc; }
+        .protocol-item:hover {
+            background-color: #f8fafc;
+        }
+
         .protocol-item.active {
             background-color: #e0f2fe;
             border-left: 4px solid var(--primary);
@@ -143,7 +168,7 @@
 
         .protocol-item-title {
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.94rem;
             color: var(--text-main);
             margin-bottom: 4px;
         }
@@ -175,7 +200,7 @@
         }
 
         .detail-title {
-            font-size: 1.15rem;
+            font-size: 1.12rem;
             font-weight: 700;
             color: var(--text-main);
         }
@@ -191,7 +216,7 @@
             padding: 18px;
             overflow-y: auto;
             line-height: 1.6;
-            font-size: 0.96rem;
+            font-size: 0.95rem;
             display: flex;
             flex-direction: column;
             gap: 14px;
@@ -240,17 +265,20 @@
             font-size: 0.94rem;
             outline: none;
         }
-        .form-control:focus { border-color: var(--primary); }
+
+        .form-control:focus {
+            border-color: var(--primary);
+        }
 
         textarea.form-control.content-area {
             resize: none;
-            height: 240px;
+            height: 220px;
             line-height: 1.5;
         }
 
         textarea.form-control.note-area {
             resize: none;
-            height: 85px;
+            height: 80px;
             line-height: 1.45;
         }
 
@@ -268,17 +296,42 @@
             transition: all 0.15s;
         }
 
-        .btn-primary { background-color: var(--primary); color: white; }
-        .btn-primary:hover { background-color: var(--primary-hover); }
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
 
-        .btn-outline { background-color: white; border: 1px solid var(--border); color: var(--text-main); }
-        .btn-outline:hover { background-color: #f1f5f9; }
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
 
-        .btn-danger { background-color: var(--danger); color: white; }
-        .btn-danger:hover { background-color: var(--danger-hover); }
+        .btn-outline {
+            background-color: white;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
 
-        .btn-success { background-color: var(--success); color: white; }
-        .btn-success:hover { opacity: 0.92; }
+        .btn-outline:hover {
+            background-color: #f1f5f9;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: var(--danger-hover);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            opacity: 0.92;
+        }
 
         .empty-state {
             height: 100%;
@@ -306,13 +359,27 @@
             pointer-events: none;
             z-index: 1000;
         }
-        .toast.show { opacity: 1; transform: translateY(0); }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         @media (max-width: 768px) {
-            body { overflow: auto; height: auto; }
-            .tab-content.active { flex-direction: column; }
-            .sidebar-panel { width: 100%; height: 280px; }
-            .detail-panel { min-height: 360px; }
+            body {
+                overflow: auto;
+                height: auto;
+            }
+            .tab-content.active {
+                flex-direction: column;
+            }
+            .sidebar-panel {
+                width: 100%;
+                height: 260px;
+            }
+            .detail-panel {
+                min-height: 360px;
+            }
         }
     </style>
 </head>
@@ -322,20 +389,20 @@
         <div class="brand">
             <span>⚕️ CÔNG CỤ Y KHOA</span>
         </div>
-        
-        <nav class="nav-tabs">
-            <button class="tab-btn active" onclick="switchTab('tab-protocol', this)">
+
+        <nav class="nav-tabs" id="navTabs">
+            <button type="button" class="tab-btn active" data-tab="tab-protocol">
                 📋 Protocol phẫu thuật, thủ thuật
             </button>
-            <button class="tab-btn" onclick="switchTab('tab-future-1', this)">
+            <button type="button" class="tab-btn" data-tab="tab-future-1">
                 🧮 Công cụ hỗ trợ 2 (Dự phòng)
             </button>
         </nav>
 
         <div class="header-actions">
-            <button class="btn btn-outline" onclick="exportData()">⬇️ Xuất dữ liệu</button>
-            <button class="btn btn-outline" onclick="document.getElementById('importFile').click()">⬆️ Nhập dữ liệu</button>
-            <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
+            <button type="button" class="btn btn-outline" id="btnExport">⬇️ Xuất dữ liệu</button>
+            <button type="button" class="btn btn-outline" id="btnImportTrigger">⬆️ Nhập dữ liệu</button>
+            <input type="file" id="importFile" accept=".json" style="display: none;">
         </div>
     </header>
 
@@ -343,20 +410,15 @@
         <section id="tab-protocol" class="tab-content active">
             <div class="sidebar-panel">
                 <div class="sidebar-header">
-                    <button class="btn btn-primary" style="width: 100%;" onclick="openForm()">
+                    <button type="button" class="btn btn-primary" style="width: 100%;" id="btnNewProtocol">
                         ➕ Nhập protocol mới
                     </button>
-                    <input type="text" id="searchInput" class="search-box" placeholder="🔍 Tìm tên phẫu thuật, thủ thuật..." oninput="renderList()">
+                    <input type="text" id="searchInput" class="search-box" placeholder="🔍 Tìm tên phẫu thuật, thủ thuật...">
                 </div>
                 <ul id="protocolList" class="protocol-list"></ul>
             </div>
 
-            <div class="detail-panel" id="detailPanel">
-                <div class="empty-state">
-                    <p style="font-size: 1.08rem; font-weight: 600; margin-bottom: 6px;">Chưa chọn Protocol nào</p>
-                    <p style="font-size: 0.9rem;">Chọn một phẫu thuật/thủ thuật ở danh sách bên trái để xem hoặc bấm <b>"Nhập protocol mới"</b>.</p>
-                </div>
-            </div>
+            <div class="detail-panel" id="detailPanel"></div>
         </section>
 
         <section id="tab-future-1" class="tab-content">
@@ -372,280 +434,369 @@
     <div id="toast" class="toast"></div>
 
     <script>
-        const STORAGE_KEY = 'medical_protocols_v1';
+        (function () {
+            const STORAGE_KEY = 'medical_protocols_v1';
 
-        const defaultProtocols = [
-            {
-                id: 'demo-1',
-                title: 'Gây tê tủy sống phẫu thuật kết hợp xương chi dưới',
-                content: '1. Chuẩn bị bệnh nhân:\n- Đánh giá tiền mê, kiểm tra đông máu (PT, aPTT, Tiểu cầu).\n- Lập đường truyền tĩnh mạch ngoại biên kim 18G, truyền dịch tinh thể 500ml.\n\n2. Kỹ thuật:\n- Tư thế: Nằm nghiêng hoặc ngồi cong lưng tôm.\n- Vị trí chọc: Khe liên đốt L3-L4 hoặc L4-L5.\n- Thuốc tê: Bupivacaine heavy 0.5% liều 7.5 - 10mg phối hợp Morphine 0.1mg.',
-                note: 'Theo dõi sát huyết áp và nhịp thở trong 24 giờ đầu nếu có phối hợp Morphine tủy sống.',
-                updatedAt: new Date().toLocaleString('vi-VN')
-            }
-        ];
+            const defaultProtocols = [
+                {
+                    id: 'demo-1',
+                    title: 'Gây tê tủy sống phẫu thuật kết hợp xương chi dưới',
+                    content: '1. Chuẩn bị bệnh nhân:\n- Đánh giá tiền mê, kiểm tra đông máu (PT, aPTT, Tiểu cầu).\n- Lập đường truyền tĩnh mạch ngoại biên kim 18G, truyền dịch tinh thể 500ml.\n\n2. Kỹ thuật:\n- Tư thế: Nằm nghiêng hoặc ngồi cong lưng tôm.\n- Vị trí chọc: Khe liên đốt L3-L4 hoặc L4-L5.\n- Thuốc tê: Bupivacaine heavy 0.5% liều 7.5 - 10mg phối hợp Morphine 0.1mg.',
+                    note: 'Theo dõi sát huyết áp và nhịp thở trong 24 giờ đầu nếu có phối hợp Morphine tủy sống.',
+                    updatedAt: new Date().toLocaleString('vi-VN')
+                }
+            ];
 
-        function loadProtocols() {
-            try {
-                const raw = localStorage.getItem(STORAGE_KEY);
-                if (!raw) return [...defaultProtocols];
-                const parsed = JSON.parse(raw);
-                if (!Array.isArray(parsed)) return [...defaultProtocols];
-                return parsed.map((item, idx) => ({
-                    id: String(item.id || ('proto-' + idx)),
-                    title: String(item.title || 'Chưa có tên'),
-                    content: String(item.content || ''),
-                    note: String(item.note || ''),
-                    updatedAt: String(item.updatedAt || new Date().toLocaleString('vi-VN'))
-                }));
-            } catch (e) {
-                return [...defaultProtocols];
-            }
-        }
-
-        let protocols = loadProtocols();
-        let selectedId = null;
-
-        function switchTab(tabId, btnElement) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            btnElement.classList.add('active');
-        }
-
-        function saveToStorage() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(protocols));
-        }
-
-        function renderList() {
-            const listEl = document.getElementById('protocolList');
-            const keyword = document.getElementById('searchInput').value.toLowerCase().trim();
-            listEl.innerHTML = '';
-
-            const filtered = protocols.filter(p => (p.title || '').toLowerCase().includes(keyword));
-
-            if (filtered.length === 0) {
-                listEl.innerHTML = `<li style="padding: 20px; text-align: center; color: #64748b; font-size: 0.9rem;">Không tìm thấy protocol nào</li>`;
-                return;
+            function escapeHTML(str) {
+                return String(str ?? '').replace(/[&<>'"]/g, function (tag) {
+                    const map = {
+                        '&': '&',
+                        '<': '<',
+                        '>': '>',
+                        "'": ''',
+                        '"': '"'
+                    };
+                    return map[tag] || tag;
+                });
             }
 
-            filtered.forEach(item => {
-                const li = document.createElement('li');
-                li.className = `protocol-item ${item.id === selectedId ? 'active' : ''}`;
-                li.onclick = () => viewProtocol(item.id);
-                li.innerHTML = `
-                    <div class="protocol-item-title">${escapeHTML(item.title)}</div>
-                    <div class="protocol-item-meta">${item.note ? '📝 Có ghi chú • ' : ''}Cập nhật: ${escapeHTML(item.updatedAt)}</div>
-                `;
-                listEl.appendChild(li);
-            });
-        }
-
-        function viewProtocol(id) {
-            const item = protocols.find(p => p.id === id);
-            if (!item) {
-                resetDetailPanel();
-                return;
+            function normalizeItem(item, idx) {
+                const obj = item && typeof item === 'object' ? item : {};
+                return {
+                    id: String(obj.id || ('proto-' + Date.now() + '-' + idx)),
+                    title: String(obj.title || 'Chưa có tên'),
+                    content: String(obj.content || ''),
+                    note: String(obj.note || ''),
+                    updatedAt: String(obj.updatedAt || new Date().toLocaleString('vi-VN'))
+                };
             }
 
-            selectedId = item.id;
-            renderList();
-
-            const noteBlock = item.note && item.note.trim() !== ''
-                ? `<div class="note-box"><span class="note-label">📌 Ghi chú</span>${escapeHTML(item.note)}</div>`
-                : '';
-
-            const panel = document.getElementById('detailPanel');
-            panel.innerHTML = `
-                <div class="detail-header">
-                    <div class="detail-title">${escapeHTML(item.title)}</div>
-                    <div class="action-group">
-                        <button class="btn btn-outline" onclick="openForm('${escapeHTML(item.id)}')">✏️ Chỉnh sửa</button>
-                        <button class="btn btn-outline" onclick="copyProtocol('${escapeHTML(item.id)}')">📋 Sao chép protocol</button>
-                        <button class="btn btn-danger" onclick="deleteProtocol('${escapeHTML(item.id)}')">🗑️ Xóa protocol</button>
-                    </div>
-                </div>
-                <div class="detail-body">
-                    <div class="protocol-content-display">${escapeHTML(item.content)}</div>
-                    ${noteBlock}
-                </div>
-            `;
-        }
-
-        function openForm(editId = null) {
-            const isEdit = editId !== null;
-            const item = isEdit
-                ? (protocols.find(p => p.id === editId) || { title: '', content: '', note: '' })
-                : { title: '', content: '', note: '' };
-
-            const panel = document.getElementById('detailPanel');
-            panel.innerHTML = `
-                <div class="detail-header">
-                    <div class="detail-title">${isEdit ? 'Chỉnh sửa Protocol' : 'Nhập Protocol mới'}</div>
-                    <div class="action-group">
-                        <button class="btn btn-outline" onclick="${isEdit ? `viewProtocol('${escapeHTML(editId)}')` : 'resetDetailPanel()'}">Hủy</button>
-                        <button class="btn btn-success" onclick="saveProtocol(${isEdit ? `'${escapeHTML(editId)}'` : 'null'})">💾 Lưu</button>
-                    </div>
-                </div>
-                <div class="detail-body">
-                    <div class="form-group">
-                        <label for="protoTitle">Tên phẫu thuật, thủ thuật <span style="color:red">*</span></label>
-                        <input type="text" id="protoTitle" class="form-control" placeholder="Ví dụ: Phẫu thuật nội soi cắt ruột thừa..." value="${escapeHTML(item.title)}">
-                    </div>
-                    <div class="form-group">
-                        <label for="protoContent">Nội dung protocol <span style="color:red">*</span></label>
-                        <textarea id="protoContent" class="form-control content-area" placeholder="Nhập các bước chuẩn bị, quy trình thực hiện, thuốc, theo dõi...">${escapeHTML(item.content)}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="protoNote">Ghi chú</label>
-                        <textarea id="protoNote" class="form-control note-area" placeholder="Nhập ghi chú bổ sung, lưu ý đặc biệt (không bắt buộc)...">${escapeHTML(item.note)}</textarea>
-                    </div>
-                </div>
-            `;
-            document.getElementById('protoTitle').focus();
-        }
-
-        function saveProtocol(editId) {
-            const title = document.getElementById('protoTitle').value.trim();
-            const content = document.getElementById('protoContent').value.trim();
-            const note = document.getElementById('protoNote').value.trim();
-
-            if (!title || !content) {
-                showToast('⚠️ Vui lòng nhập đầy đủ Tên và Nội dung protocol!');
-                return;
+            function loadProtocols() {
+                try {
+                    const raw = localStorage.getItem(STORAGE_KEY);
+                    if (!raw) return defaultProtocols.map(normalizeItem);
+                    const parsed = JSON.parse(raw);
+                    if (!Array.isArray(parsed)) return defaultProtocols.map(normalizeItem);
+                    return parsed.map(normalizeItem);
+                } catch (err) {
+                    return defaultProtocols.map(normalizeItem);
+                }
             }
 
-            const now = new Date().toLocaleString('vi-VN');
+            let protocols = loadProtocols();
+            let selectedId = null;
 
-            if (editId) {
-                const index = protocols.findIndex(p => p.id === editId);
-                if (index !== -1) {
-                    protocols[index] = {
-                        ...protocols[index],
-                        title,
-                        content,
-                        note,
+            function saveToStorage() {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(protocols));
+            }
+
+            function showToast(msg) {
+                const toast = document.getElementById('toast');
+                if (!toast) return;
+                toast.textContent = msg;
+                toast.classList.add('show');
+                setTimeout(function () {
+                    toast.classList.remove('show');
+                }, 2600);
+            }
+
+            function switchTab(tabId) {
+                document.querySelectorAll('.tab-content').forEach(function (sec) {
+                    sec.classList.toggle('active', sec.id === tabId);
+                });
+                document.querySelectorAll('.tab-btn').forEach(function (btn) {
+                    btn.classList.toggle('active', btn.dataset.tab === tabId);
+                });
+            }
+
+            function resetDetailPanel() {
+                const panel = document.getElementById('detailPanel');
+                panel.innerHTML = [
+                    '<div class="empty-state">',
+                    '  <p style="font-size: 1.08rem; font-weight: 600; margin-bottom: 6px;">Chưa chọn Protocol nào</p>',
+                    '  <p style="font-size: 0.9rem;">Chọn một phẫu thuật/thủ thuật ở danh sách bên trái để xem hoặc bấm <b>"Nhập protocol mới"</b>.</p>',
+                    '</div>'
+                ].join('');
+            }
+
+            function renderList() {
+                const listEl = document.getElementById('protocolList');
+                const searchEl = document.getElementById('searchInput');
+                const keyword = (searchEl ? searchEl.value : '').toLowerCase().trim();
+
+                const filtered = protocols.filter(function (p) {
+                    return String(p.title || '').toLowerCase().includes(keyword);
+                });
+
+                listEl.innerHTML = '';
+
+                if (filtered.length === 0) {
+                    listEl.innerHTML = '<li style="padding: 20px; text-align: center; color: #64748b; font-size: 0.9rem;">Không tìm thấy protocol nào</li>';
+                    return;
+                }
+
+                filtered.forEach(function (item) {
+                    const li = document.createElement('li');
+                    li.className = 'protocol-item' + (item.id === selectedId ? ' active' : '');
+                    li.dataset.id = item.id;
+
+                    const notePrefix = item.note && item.note.trim() !== '' ? '📝 Có ghi chú • ' : '';
+                    li.innerHTML = [
+                        '<div class="protocol-item-title">' + escapeHTML(item.title) + '</div>',
+                        '<div class="protocol-item-meta">' + notePrefix + 'Cập nhật: ' + escapeHTML(item.updatedAt) + '</div>'
+                    ].join('');
+
+                    li.addEventListener('click', function () {
+                        viewProtocol(item.id);
+                    });
+
+                    listEl.appendChild(li);
+                });
+            }
+
+            function viewProtocol(id) {
+                const item = protocols.find(function (p) {
+                    return p.id === id;
+                });
+
+                if (!item) {
+                    resetDetailPanel();
+                    return;
+                }
+
+                selectedId = item.id;
+                renderList();
+
+                const noteHtml = item.note && item.note.trim() !== ''
+                    ? '<div class="note-box"><span class="note-label">📌 Ghi chú</span>' + escapeHTML(item.note) + '</div>'
+                    : '';
+
+                const panel = document.getElementById('detailPanel');
+                panel.innerHTML = [
+                    '<div class="detail-header">',
+                    '  <div class="detail-title">' + escapeHTML(item.title) + '</div>',
+                    '  <div class="action-group">',
+                    '    <button type="button" class="btn btn-outline" id="btnEditProto">✏️ Chỉnh sửa</button>',
+                    '    <button type="button" class="btn btn-outline" id="btnCopyProto">📋 Sao chép protocol</button>',
+                    '    <button type="button" class="btn btn-danger" id="btnDeleteProto">🗑️ Xóa protocol</button>',
+                    '  </div>',
+                    '</div>',
+                    '<div class="detail-body">',
+                    '  <div class="protocol-content-display">' + escapeHTML(item.content) + '</div>',
+                    noteHtml,
+                    '</div>'
+                ].join('');
+
+                document.getElementById('btnEditProto').addEventListener('click', function () {
+                    openForm(item.id);
+                });
+
+                document.getElementById('btnCopyProto').addEventListener('click', function () {
+                    copyProtocol(item.id);
+                });
+
+                document.getElementById('btnDeleteProto').addEventListener('click', function () {
+                    deleteProtocol(item.id);
+                });
+            }
+
+            function openForm(editId) {
+                const isEdit = Boolean(editId);
+                const found = isEdit
+                    ? protocols.find(function (p) { return p.id === editId; })
+                    : null;
+
+                const current = found || { title: '', content: '', note: '' };
+                const panel = document.getElementById('detailPanel');
+
+                panel.innerHTML = [
+                    '<div class="detail-header">',
+                    '  <div class="detail-title">' + (isEdit ? 'Chỉnh sửa Protocol' : 'Nhập Protocol mới') + '</div>',
+                    '  <div class="action-group">',
+                    '    <button type="button" class="btn btn-outline" id="btnCancelForm">Hủy</button>',
+                    '    <button type="button" class="btn btn-success" id="btnSaveForm">💾 Lưu</button>',
+                    '  </div>',
+                    '</div>',
+                    '<div class="detail-body">',
+                    '  <div class="form-group">',
+                    '    <label for="protoTitle">Tên phẫu thuật, thủ thuật <span style="color:red">*</span></label>',
+                    '    <input type="text" id="protoTitle" class="form-control" placeholder="Ví dụ: Phẫu thuật nội soi cắt ruột thừa..." value="' + escapeHTML(current.title) + '">',
+                    '  </div>',
+                    '  <div class="form-group">',
+                    '    <label for="protoContent">Nội dung protocol <span style="color:red">*</span></label>',
+                    '    <textarea id="protoContent" class="form-control content-area" placeholder="Nhập các bước chuẩn bị, quy trình thực hiện, thuốc, theo dõi...">' + escapeHTML(current.content) + '</textarea>',
+                    '  </div>',
+                    '  <div class="form-group">',
+                    '    <label for="protoNote">Ghi chú</label>',
+                    '    <textarea id="protoNote" class="form-control note-area" placeholder="Nhập ghi chú bổ sung, lưu ý đặc biệt (không bắt buộc)...">' + escapeHTML(current.note) + '</textarea>',
+                    '  </div>',
+                    '</div>'
+                ].join('');
+
+                document.getElementById('btnCancelForm').addEventListener('click', function () {
+                    if (isEdit && found) {
+                        viewProtocol(found.id);
+                    } else {
+                        resetDetailPanel();
+                    }
+                });
+
+                document.getElementById('btnSaveForm').addEventListener('click', function () {
+                    saveProtocol(isEdit ? editId : null);
+                });
+
+                const titleInput = document.getElementById('protoTitle');
+                if (titleInput) titleInput.focus();
+            }
+
+            function saveProtocol(editId) {
+                const titleInput = document.getElementById('protoTitle');
+                const contentInput = document.getElementById('protoContent');
+                const noteInput = document.getElementById('protoNote');
+
+                const title = (titleInput ? titleInput.value : '').trim();
+                const content = (contentInput ? contentInput.value : '').trim();
+                const note = (noteInput ? noteInput.value : '').trim();
+
+                if (!title || !content) {
+                    showToast('⚠️ Vui lòng nhập đầy đủ Tên và Nội dung protocol!');
+                    return;
+                }
+
+                const now = new Date().toLocaleString('vi-VN');
+
+                if (editId) {
+                    const idx = protocols.findIndex(function (p) { return p.id === editId; });
+                    if (idx !== -1) {
+                        protocols[idx] = {
+                            id: protocols[idx].id,
+                            title: title,
+                            content: content,
+                            note: note,
+                            updatedAt: now
+                        };
+                        selectedId = protocols[idx].id;
+                        saveToStorage();
+                        renderList();
+                        viewProtocol(selectedId);
+                        showToast('✅ Đã cập nhật protocol!');
+                    }
+                } else {
+                    const newItem = {
+                        id: 'proto-' + Date.now(),
+                        title: title,
+                        content: content,
+                        note: note,
                         updatedAt: now
                     };
-                    selectedId = editId;
-                    showToast('✅ Đã cập nhật protocol!');
+                    protocols.unshift(newItem);
+                    selectedId = newItem.id;
+                    saveToStorage();
+                    renderList();
+                    viewProtocol(selectedId);
+                    showToast('✅ Đã lưu protocol mới!');
                 }
-            } else {
-                const newId = 'proto-' + Date.now();
-                protocols.unshift({
-                    id: newId,
-                    title,
-                    content,
-                    note,
-                    updatedAt: now
-                });
-                selectedId = newId;
-                showToast('✅ Đã lưu protocol mới!');
             }
 
-            saveToStorage();
-            renderList();
-            viewProtocol(selectedId);
-        }
+            function copyProtocol(id) {
+                const item = protocols.find(function (p) { return p.id === id; });
+                if (!item) return;
 
-        function copyProtocol(id) {
-            const item = protocols.find(p => p.id === id);
-            if (!item) return;
+                const noteText = item.note && item.note.trim() !== '' ? '\n\nGhi chú:\n' + item.note : '';
+                const clipboardText = String(item.title).toUpperCase() + '\n\n' + item.content + noteText;
 
-            const notePart = item.note ? `\n\nGhi chú:\n${item.note}` : '';
-            const textToCopy = `${item.title.toUpperCase()}\n\n${item.content}${notePart}`;
-            navigator.clipboard.writeText(textToCopy).catch(() => {});
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(clipboardText).catch(function () {});
+                }
 
-            const newId = 'proto-' + Date.now();
-            const duplicated = {
-                id: newId,
-                title: `${item.title} (Bản sao)`,
-                content: item.content,
-                note: item.note || '',
-                updatedAt: new Date().toLocaleString('vi-VN')
-            };
-            protocols.unshift(duplicated);
-            saveToStorage();
-            viewProtocol(newId);
-            showToast('📋 Đã tạo bản sao & chép nội dung vào bộ nhớ tạm!');
-        }
+                const duplicated = {
+                    id: 'proto-' + Date.now(),
+                    title: item.title + ' (Bản sao)',
+                    content: item.content,
+                    note: item.note || '',
+                    updatedAt: new Date().toLocaleString('vi-VN')
+                };
 
-        function deleteProtocol(id) {
-            if (!confirm('Bạn có chắc chắn muốn xóa protocol này không?')) return;
-            protocols = protocols.filter(p => p.id !== id);
-            saveToStorage();
-            if (selectedId === id) {
-                selectedId = null;
-                resetDetailPanel();
+                protocols.unshift(duplicated);
+                selectedId = duplicated.id;
+                saveToStorage();
+                renderList();
+                viewProtocol(selectedId);
+                showToast('📋 Đã tạo bản sao & chép nội dung vào bộ nhớ tạm!');
             }
-            renderList();
-            showToast('🗑️ Đã xóa protocol!');
-        }
 
-        function resetDetailPanel() {
-            document.getElementById('detailPanel').innerHTML = `
-                <div class="empty-state">
-                    <p style="font-size: 1.08rem; font-weight: 600; margin-bottom: 6px;">Chưa chọn Protocol nào</p>
-                    <p style="font-size: 0.9rem;">Chọn một phẫu thuật/thủ thuật ở danh sách bên trái để xem hoặc bấm <b>"Nhập protocol mới"</b>.</p>
-                </div>
-            `;
-        }
+            function deleteProtocol(id) {
+                if (!window.confirm('Bạn có chắc chắn muốn xóa protocol này không?')) return;
+                protocols = protocols.filter(function (p) { return p.id !== id; });
+                saveToStorage();
+                if (selectedId === id) {
+                    selectedId = null;
+                    resetDetailPanel();
+                }
+                renderList();
+                showToast('🗑️ Đã xóa protocol!');
+            }
 
-        function exportData() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(protocols, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `protocol_ykhoa_${new Date().toISOString().slice(0,10)}.json`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-            showToast('⬇️ Đã xuất file dữ liệu dự phòng!');
-        }
+            function exportData() {
+                const jsonText = JSON.stringify(protocols, null, 2);
+                const blob = new Blob([jsonText], { type: 'application/json;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'protocol_ykhoa_' + new Date().toISOString().slice(0, 10) + '.json';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                showToast('⬇️ Đã xuất file dữ liệu dự phòng!');
+            }
 
-        function importData(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const imported = JSON.parse(e.target.result);
-                    if (Array.isArray(imported)) {
-                        protocols = imported.map((item, idx) => ({
-                            id: String(item.id || ('proto-' + Date.now() + '-' + idx)),
-                            title: String(item.title || 'Chưa có tên'),
-                            content: String(item.content || ''),
-                            note: String(item.note || ''),
-                            updatedAt: String(item.updatedAt || new Date().toLocaleString('vi-VN'))
-                        }));
-                        saveToStorage();
+            function importData(event) {
+                const file = event.target.files && event.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    try {
+                        const parsed = JSON.parse(e.target.result);
+                        if (!Array.isArray(parsed)) {
+                            window.alert('File không đúng định dạng danh sách protocol!');
+                            return;
+                        }
+                        protocols = parsed.map(normalizeItem);
                         selectedId = null;
-                        resetDetailPanel();
+                        saveToStorage();
                         renderList();
+                        resetDetailPanel();
                         showToast('✅ Đã nhập dữ liệu thành công!');
-                    } else {
-                        alert('File không đúng định dạng!');
+                    } catch (err) {
+                        window.alert('Lỗi đọc file JSON!');
                     }
-                } catch (err) {
-                    alert('Lỗi đọc file JSON!');
-                }
-            };
-            reader.readAsText(file);
-            event.target.value = '';
-        }
+                };
+                reader.readAsText(file);
+                event.target.value = '';
+            }
 
-        function escapeHTML(str) {
-            return String(str ?? '').replace(/[&<>'"]/g, tag => ({
-                '&': '&', '<': '<', '>': '>', "'": ''', '"': '"'
-            }[tag]));
-        }
+            document.querySelectorAll('.tab-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    switchTab(btn.dataset.tab);
+                });
+            });
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2800);
-        }
+            document.getElementById('btnNewProtocol').addEventListener('click', function () {
+                openForm(null);
+            });
 
-        renderList();
+            document.getElementById('searchInput').addEventListener('input', renderList);
+            document.getElementById('btnExport').addEventListener('click', exportData);
+            document.getElementById('btnImportTrigger').addEventListener('click', function () {
+                document.getElementById('importFile').click();
+            });
+            document.getElementById('importFile').addEventListener('change', importData);
+
+            renderList();
+            resetDetailPanel();
+        })();
     </script>
 </body>
 </html>
